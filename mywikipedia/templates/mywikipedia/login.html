@@ -1,0 +1,11 @@
+{% extends 'mywikipedia/wikipedia.html' %}
+{% block body %}
+<div class="text-center">
+  <form method="post">
+
+    {{ form.as_p }}
+
+  </form>
+  <button type="submit" class="btn btn-warning">Login</button>
+</div>
+{% endblock %}

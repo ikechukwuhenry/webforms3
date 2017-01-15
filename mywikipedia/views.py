@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Users
 from . import forms
+from django.contrib.auth.decorators import login_required
 #from .forms import UserForm
 # Create your views here.
 def wikipedia(request):
@@ -40,6 +41,6 @@ def signin(request):
                 print('opening a valied profile')
                 return redirect('/profile')
     return render(request,'mywikipedia/signin.html', {'form': form})
-
+#@login_required(login_url='/signin')
 def profile(request):
     return render(request, 'mywikipedia/profile.html')

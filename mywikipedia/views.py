@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def wikipedia(request):
     users = Users.objects.all()
-    return render(request,'mywikipedia/wikipedia.html',{'users': users})
+    randomurl = 'https://en.wikipedia.org/wiki/Special:Random'
+    return render(request,'mywikipedia/wikipedia.html',{'users': users,'randomurl':randomurl})
+
 def customLogin(request):
     form = forms.UserForm()
     if request.method == 'POST':

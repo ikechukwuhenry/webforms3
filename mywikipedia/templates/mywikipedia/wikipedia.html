@@ -5,6 +5,8 @@
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
 </head>
 <body class="container">
 <div class="container">
@@ -14,7 +16,7 @@
 {% block body %}
 
 <div class="text-center">
-<p><a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" class="random-article">Click here for a random article</a><p>
+<p><a href="{{ randomurl }}" target=_blank class="random-article">Click here for a random article</a><p>
 <p class="search-text">Click icon to search<p>
 </div>
 <form class="form" method="post">

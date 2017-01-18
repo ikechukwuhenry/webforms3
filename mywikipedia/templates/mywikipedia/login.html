@@ -1,11 +1,25 @@
 {% extends 'mywikipedia/wikipedia.html' %}
 {% block body %}
 <div class="text-center">
-  <form method="post">
+  <form class="form-group" method="post">
+    <ul class="list-unstyled">
+      <!--
+    {{ form.as_ul }}
+  -->
 
-    {{ form.as_p }}
-
+  {% for field in form %}
+  <li class="{{ field.name }}">
+      <div class="form-group">
+    <label class="col-xs-3 text-right">{{field.name }}</label>
+    <div class="col-xs-3">
+    {{ field }}
+  </div>
+  </li>
+  <br />
+  {% endfor %}
+  </div>
+  </ul>
   </form>
-  <button type="submit" class="btn btn-warning">Login</button>
+  <button type="submit" class="btn btn-success col-xs-1 col-xs-offset-4">Login</button>
 </div>
 {% endblock %}

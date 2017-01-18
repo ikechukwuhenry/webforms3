@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core import validators
 from .models import Users
 from . import forms
 from django.contrib.auth.decorators import login_required
@@ -14,7 +15,9 @@ def customLogin(request):
     if request.method == 'POST':
         print('post rewuest')
         formvalue = forms.UserForm(request.POST)
+
         if formvalue.is_valid():
+            formvalue.clean()
             print('form is valid')
             print(formvalue.cleaned_data['username'])
             user = Users()
@@ -45,4 +48,17 @@ def signin(request):
     return render(request,'mywikipedia/signin.html', {'form': form})
 #@login_required(login_url='/signin')
 def profile(request):
+    print('profile view called')
     return render(request, 'mywikipedia/profile.html')
+
+
+def contact_us(request):
+    form = forms.ContactForm(initial={'sender':'user@example.com'})
+    return render(request, 'mywikipedia/contactus.html',{'form':form })
+
+def login(request,template_name):
+    print("login view called")
+    return render(request,template_name)
+
+def home(request):
+    return render(request,'mywikipedia/home.html')

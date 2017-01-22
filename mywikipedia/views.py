@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.core import validators
-from .models import Users
+from .models import Users,Article
+from django.forms import Textarea
+from django.forms.models import modelform_factory
 from . import forms
 from django.contrib.auth.decorators import login_required
+from random import randint
 #from .forms import UserForm
 # Create your views here.
 def wikipedia(request):
@@ -30,7 +33,8 @@ def customLogin(request):
 
 def modelForm(request):
     #modelform = forms.ModelForm()
-    return render(request,'mywikipedia/wikipedia.html')
+    factoryform = modelform_factory(Article,fields=('headline','content'), widgets={'content':Textarea()})
+    return render(request,'mywikipedia/wikipedia.html',{'form':factoryform})
 
 def signin(request):
     form = forms.SignInForm()
@@ -49,7 +53,8 @@ def signin(request):
 #@login_required(login_url='/signin')
 def profile(request):
     print('profile view called')
-    return render(request, 'mywikipedia/profile.html')
+    articleform = forms.ArticleForm()
+    return render(request, 'mywikipedia/profile.html',{'articleform': articleform})
 
 
 def contact_us(request):
@@ -61,4 +66,27 @@ def login(request,template_name):
     return render(request,template_name)
 
 def home(request):
+    imageurl = "http://"
+    staticurl = "/static/img/"
+    ext = ".jpg"
+    imageNames = ['coverpics','old-couple-kissing','sunset']
+    fullurl =""
+    if 'SERVER_PORT' in request.META:
+        print(request.META['SERVER_PORT'])
+        print(request.get_host())
+        randomIndex = randint(0,(len(imageNames)-1))
+        fullurl = imageurl + request.get_host() + staticurl + imageNames[randomIndex] + ext
+        print(fullurl)
     return render(request,'mywikipedia/home.html')
+
+def ajaxresponse(request):
+    imageurl = "http://"
+    staticurl = "/static/img/"
+    ext = ".jpg"
+    imageNames = ['coverpics','old-couple-kissing','sunset']
+    fullurl =""
+    if request.method == 'GET':
+        randomIndex = randint(0,(len(imageNames)-1))
+        fullurl = imageurl + request.get_host() + staticurl + imageNames[randomIndex] + ext
+        #imageUrl = "http://0.0.0.0:7000/static/img/coverpics.jpg"
+        return HttpResponse(fullurl, content_type="text/plain")

@@ -9,3 +9,10 @@ class Users(models.Model):
     #email = models.EmailField(unique=True,blank=False)
     username = models.CharField(max_length=250)
     password = models.CharField(max_length=20, blank=False, default="1234")
+
+class Article(models.Model):
+    """docstring for ."""
+    pub_date = models.DateField()
+    headline = models.CharField(max_length=250)
+    content = models.CharField(max_length=250)
+    reporter = models.CharField(max_length=250)

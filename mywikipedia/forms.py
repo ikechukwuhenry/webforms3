@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 from django.forms import ModelForm, Textarea
-from mywikipedia.models import Article
+from mywikipedia.models import Article, Musician, Album
 TOP_CHOICES = (
     ('general', 'General enquiry'),
     ('bug', 'Bug report'),
@@ -38,3 +38,9 @@ class ArticleForm(ModelForm):
         widgets = {
             'content': Textarea(attrs={'cols':50, 'rows':10}),
         }
+
+class AlbumForm(ModelForm):
+    """docstring for ."""
+    class Meta:
+        model = Album 
+        fields = '__all__'

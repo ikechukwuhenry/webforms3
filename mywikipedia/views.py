@@ -5,6 +5,8 @@ from django.forms import Textarea
 from django.forms.models import modelform_factory
 from . import forms
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+
 from random import randint
 #from .forms import UserForm
 # Create your views here.
@@ -53,7 +55,8 @@ def signin(request):
 #@login_required(login_url='/signin')
 def profile(request):
     print('profile view called')
-    articleform = forms.ArticleForm()
+    #articleform = forms.ArticleForm()
+    articleform = forms.AlbumForm()
     return render(request, 'mywikipedia/profile.html',{'articleform': articleform})
 
 
@@ -77,7 +80,9 @@ def home(request):
         randomIndex = randint(0,(len(imageNames)-1))
         fullurl = imageurl + request.get_host() + staticurl + imageNames[randomIndex] + ext
         print(fullurl)
-    return render(request,'mywikipedia/home.html')
+        #using reverse urlpatterns mapping to render a view
+        return render(request,'mywikipedia/home.html')
+        #return render(request,reverse('home'))
 
 def ajaxresponse(request):
     imageurl = "http://"
